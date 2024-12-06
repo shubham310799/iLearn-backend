@@ -27,7 +27,7 @@ namespace iLearn.Controllers
         }
 
         [HttpGet("user")]
-        [Authorize]
+        [Authorize("Admin,Instructor")]
         public async Task<string> GetUser()
         {
             User user = (User)HttpContext.Items["User"];

@@ -11,6 +11,8 @@ namespace iLearn.Services
     public class UserService : IUserService
     {
         private readonly AppSettings _appSettings;
+        private static Guid RoleId1 = Guid.NewGuid();
+        private static Guid RoleId2 = Guid.NewGuid();
 
         public UserService(IOptions<AppSettings> appSettings)
         {
@@ -24,7 +26,20 @@ namespace iLearn.Services
                 Id = new Guid().ToString(),
                 Name = "sdaa",
                 Email = "dashdkj1@ds.com",
-                Password = "Password@123"
+                Password = "Password@123",
+                Roles = new List<Role>()
+                {
+                    new Role()
+                    {
+                        Id = RoleId1,
+                        RoleName = "User"
+                    },
+                    new Role()
+                    {
+                        Id = RoleId2,
+                        RoleName = "Instructor"
+                    }
+                }
             },
             new User()
             {
