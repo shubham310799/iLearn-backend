@@ -23,42 +23,29 @@ namespace iLearn.Services
         {
             new User()
             {
-                Id = new Guid().ToString(),
-                Name = "sdaa",
+                Id = new Guid(),
+                FirstName = "sdaa",
                 Email = "dashdkj1@ds.com",
                 Password = "Password@123",
-                Roles = new List<Role>()
-                {
-                    new Role()
-                    {
-                        Id = RoleId1,
-                        RoleName = "User"
-                    },
-                    new Role()
-                    {
-                        Id = RoleId2,
-                        RoleName = "Instructor"
-                    }
-                }
             },
             new User()
             {
-                Id = new Guid().ToString(),
-                Name = "sdaa",
+                Id = new Guid(),
+                FirstName = "sdaa",
                 Email = "dashdkj2@ds.com",
                 Password = "Password@123"
             },
             new User()
             {
-                Id = new Guid().ToString(),
-                Name = "sdaa",
+                Id = new Guid(),
+                FirstName = "sdaa",
                 Email = "dashdkj3@ds.com",
                 Password = "Password@123"
             },
             new User()
             {
-                Id = new Guid().ToString(),
-                Name = "sdaa",
+                Id = new Guid(),
+                FirstName = "sdaa",
                 Email = "dashdkj4@ds.com",
                 Password = "Password@123"
             },
@@ -84,7 +71,7 @@ namespace iLearn.Services
 
         public async Task<User> GetUserByIdAsync(string id)
         {
-            return users.FirstOrDefault(u => u.Id == id);
+            return users.FirstOrDefault(u => u.Id.ToString() == id);
         }
 
         public async Task<User> UpdateUserAsync(User user)

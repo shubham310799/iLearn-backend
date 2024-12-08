@@ -1,10 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace iLearn.Data.Models
 {
     public class Role
     {
-        public Guid Id { get; set; }
-        public string RoleName { get; set; } = "User";
+        [Required]
+        public Guid Id { get; set; } = new Guid();
+        [Required]
+        public string RoleName { get; set; }
+        public bool IsActive { get; set; } = true;
+        public DateTime CreatedAt { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
     }
 }

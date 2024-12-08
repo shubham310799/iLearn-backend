@@ -31,7 +31,7 @@ namespace iLearn.Controllers
         public async Task<string> GetUser()
         {
             User user = (User)HttpContext.Items["User"];
-            return user?.Id;
+            return "";
         }
     }
 }

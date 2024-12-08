@@ -8,7 +8,7 @@ namespace iLearn.Common
     {
         private readonly string _policy;
 
-        public AuthorizeAttribute(string policy = "")
+        public AuthorizeAttribute(string policy = null)
         {
             _policy = policy;
         }
@@ -36,7 +36,7 @@ namespace iLearn.Common
             bool res = false;
             foreach(var role in _policy.Split(','))
             {
-                if (user.Roles.Any(r => r.RoleName == role.Trim()))
+                if (user.UserRoles.Any(r => r.Role.RoleName == role.Trim()))
                 {
                     res = true;
                     break;
