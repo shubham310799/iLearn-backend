@@ -1,14 +1,18 @@
 ﻿using iLearn.Data.Models;
+using iLearn.Common.Enums;
+using iLearn.Data.DTOs;
 
 namespace iLearn.Services
 {
     public interface IUserService
     {
-        Task<string> AuthenticateUser(User userToCheck);
-        Task<User> GetUserByIdAsync(string id);
+        Task<GlobalResponse<string>> AuthenticateUser(User userToCheck);
+        Task<GlobalResponse<User>> GetUserByIdAsync(string id);
 
-        Task<IList<User>> GetAllUsersAsync();
+        Task<GlobalResponse<IList<User>>> GetAllUsersAsync();
 
-        Task<User> UpdateUserAsync(User user);
+        Task<GlobalResponse<User>> UpdateUserAsync(User user);
+
+        Task<GlobalResponse<string>> RegisterUserAsync(User user, Roles userRole);
     }
 }

@@ -46,7 +46,11 @@ namespace iLearn.Common
                 var userId = jwtToken.Claims.First(x => x.Type == "id").Value;
 
                 //Attach user to context on successful JWT validation
-                context.Items["User"] = await userService.GetUserByIdAsync(userId);
+                var user = await userService.GetUserByIdAsync(userId);
+                if(user != null)
+                {
+                    context.Items["User"] = user.Data;
+                }
             }
             catch
             {
