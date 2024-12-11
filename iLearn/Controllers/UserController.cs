@@ -18,30 +18,49 @@ namespace iLearn.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<GlobalResponse<string>> Register(UserRegistrationDTO register)
+        public async Task<IActionResult> Register(UserRegistrationDTO register)
         {
             var response = new GlobalResponse<string>();
             try
             {
-                User user = new User()
+                if (UserRegistrationDTO.ValidateRequest(register))
                 {
-                    Id = Guid.NewGuid(),
-                    FirstName = register.FirstName,
-                    LastName = register.LastName,
-                    Email = register.Email,
-                    Password = register.Password
-                };
+                    User user = new User()
+                    {
+                        Id = Guid.NewGuid(),
+                        FirstName = register.FirstName,
+                        LastName = register.LastName,
+                        Email = register.Email,
+                        Password = register.Password
+                    };
 
-                response = await _userService.RegisterUserAsync(user, register.Role);
+                    response = await _userService.RegisterUserAsync(user, register.Role);
+                    if (response.HasError || string.IsNullOrEmpty(response.Data))
+                    {
+                        return Conflict(response);
+                    }
+                }
+                else
+                {
+                    return BadRequest(new GlobalResponse<Object>
+                    {
+                        ErrorCode = ErrorCodes.RequestValidationFailed.ErrorCode,
+                        Message = ErrorCodes.RequestValidationFailed.ErrorMessage
+                    });
+                }
             }
             catch (Exception ex)
             {
-
+                return StatusCode(500, new GlobalResponse<string>
+                {
+                    Message = ex.Message,
+                    ErrorCode = ErrorCodes.SomethingWentWrong.ErrorCode,
+                });
             }
-            return response;
+            return Ok(response);
         }
 
-        [HttpGet("login")]        
+        [HttpPost("login")]        
         public async Task<IActionResult> Login(UserLoginDTO login)
         {
             var res = new GlobalResponse<string>();
