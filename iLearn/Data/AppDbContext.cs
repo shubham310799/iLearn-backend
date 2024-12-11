@@ -14,6 +14,9 @@ namespace iLearn.Data
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
 
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<Lecture> Lectures { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
